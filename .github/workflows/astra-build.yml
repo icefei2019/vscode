@@ -26,7 +26,7 @@ jobs:
         run: npm install -g node-gyp
 
       - name: Install dependencies
-        run: yarn install --ignore-optional
+        run: yarn install --ignore-optional --prefer-offline
 
       - name: Build VS Code (Windows)
         run: yarn run gulp vscode-win32-x64
