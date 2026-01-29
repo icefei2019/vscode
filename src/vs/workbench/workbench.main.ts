@@ -124,3 +124,20 @@ import 'vs/workbench/parts/themes/test/electron-browser/themes.test.contribution
 import 'vs/workbench/parts/watermark/electron-browser/watermark';
 
 import 'vs/workbench/parts/welcome/overlay/browser/welcomeOverlay';
+
+import 'vs/workbench/services/astraInit/astraInit.contribution';
+import 'vs/workbench/services/thinkMode/thinkMode.contribution';
+import 'vs/workbench/services/situation/situation.contribution';
+import 'vs/workbench/services/spec/spec.contribution';
+import 'vs/platform/ai/modelRegistry.contribution';
+import 'vs/platform/ai/modelRouter.contribution';
+import 'vs/workbench/services/aiPlanner/aiPlanner.contribution';
+import 'vs/workbench/contrib/aiPanel/aiPanel.contribution';
+import 'vs/workbench/contrib/gitPanel/gitPanel.contribution';
+import 'vs/workbench/services/git/git.contribution';
+import 'vs/workbench/services/diffPreview/diffPreview.contribution';
+import 'vs/workbench/services/timeline/timeline.contribution';
+import 'vs/workbench/services/tokenLedger/tokenLedger.contribution';
+import 'vs/workbench/services/tokenLedger/budget.contribution';
+import 'vs/workbench/services/jarvis/jarvis.contribution';
+import 'vs/workbench/contrib/statusbar/thinkModeStatusBar.contribution';
