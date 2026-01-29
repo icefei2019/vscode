@@ -1,0 +1,35 @@
+name: Astra VS Code Build
+
+on:
+  push:
+    branches:
+      - astra-dev
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.18.2
+
+      - name: Install Yarn
+        run: npm install -g yarn@1.22.22
+
+      - name: Install dependencies
+        run: yarn install --ignore-optional
+
+      - name: Build VS Code (Windows)
+        run: yarn run gulp vscode-win32-x64
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: astra-vscode-win-x64
+          path: ./.VSCode-win32-x64
