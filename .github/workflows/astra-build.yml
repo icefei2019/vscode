@@ -11,38 +11,36 @@ jobs:
 
     env:
       NODE_OPTIONS: --max_old_space_size=8192
+      npm_config_build_from_source: false
       npm_config_python: python
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js 18
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.18.2
           cache: yarn
 
-      - name: Setup Python 3.10
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install Yarn
-        run: npm install -g yarn
-
-      - name: Install Windows Build Tools
+      - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install node-gyp
+        run: npm install -g node-gyp
+
+      - name: Configure node-gyp
+        run: |
+          npm config set msvs_version 2022
+          npm config set python python
 
       - name: Yarn install
         run: yarn --frozen-lockfile
 
-      - name: Build Astra IDE (win32-x64)
+      - name: Build Windows x64
         run: yarn gulp vscode-win32-x64
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: astra-ide-win32-x64
-          path: .vscode/vscode-win32-x64/**
 
