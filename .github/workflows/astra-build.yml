@@ -1,38 +1,48 @@
-name: Astra VS Code Build
+name: Build Astra IDE (Windows)
 
 on:
   push:
-    branches:
-      - astra-dev
+    branches: [ astra-dev ]
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: windows-latest
+  build-windows:
+    runs-on: windows-2022
+
+    env:
+      NODE_OPTIONS: --max_old_space_size=8192
+      npm_config_python: python
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 22
+      - name: Setup Node.js 18
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 18.18.2
+          cache: yarn
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
       - name: Install Yarn
-        run: npm install -g yarn@1.22.22
+        run: npm install -g yarn
 
-      - name: Install node-gyp
-        run: npm install -g node-gyp
+      - name: Install Windows Build Tools
+        uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install dependencies
-        run: yarn install --ignore-optional || echo "node-pty failed but continuing"
+      - name: Yarn install
+        run: yarn --frozen-lockfile
 
-      - name: Build VS Code (Windows)
-        run: yarn run gulp vscode-win32-x64
+      - name: Build Astra IDE (win32-x64)
+        run: yarn gulp vscode-win32-x64
 
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: astra-vscode-win-x64
-          path: ./.VSCode-win32-x64
+          name: astra-ide-win32-x64
+          path: .vscode/vscode-win32-x64/**
+
