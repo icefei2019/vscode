@@ -35,7 +35,7 @@ jobs:
         run: npm install -g node-gyp
 
       - name: Yarn install
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile --ignore-optional
 
       - name: Build Windows x64
         run: yarn gulp vscode-win32-x64
