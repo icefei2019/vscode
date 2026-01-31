@@ -122,6 +122,9 @@
   "bugs": {
     "url": "https://github.com/Microsoft/vscode/issues"
   },
+  "resolutions": {
+    "gc-signals": "^1.0.0"
+  },
   "optionalDependencies": {
     "windows-foreground-love": "0.1.0",
     "windows-mutex": "^0.2.0",
